@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+[Aa]ssets/Plugins/
+[Aa]ssets/Plugins.meta
+
+.idea
