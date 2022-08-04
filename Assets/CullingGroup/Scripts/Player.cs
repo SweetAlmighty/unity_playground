@@ -1,8 +1,8 @@
 using System;
+using Playground.CullingGroup.Highlightables;
 using UnityEngine;
-using Virbela.CodingTest.Highlightables;
 
-namespace Virbela.CodingTest
+namespace Playground.CullingGroup
 {
     /// <summary>
     /// Object used as point-of-reference when calculating distances to determine the "closest" <see cref="Highlightable"/>
@@ -11,15 +11,15 @@ namespace Virbela.CodingTest
     public class Player : MonoBehaviour
     {
         /// <summary>
-        /// Instance of <see cref="UnityEngine.Transform"/> to be utilized by this class.
-        /// </summary>
-        public Transform Transform { get; private set; }
-
-        /// <summary>
         /// Event that is fired whenever <see cref="Transform"/> has been updated.
         /// </summary>
         public event Action OnTransformUpdated;
         
+        /// <summary>
+        /// Instance of <see cref="UnityEngine.Transform"/> to be utilized by this class.
+        /// </summary>
+        public Transform Transform { get; private set; }
+
         /// <summary>
         /// Caches reference to the <see cref="UnityEngine.Transform"/> component attached to this object, and also sets
         /// <see cref="UnityEngine.Transform.hasChanged"/> for <see cref="Transform"/> to true, to trigger an initial run of

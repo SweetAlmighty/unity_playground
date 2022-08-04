@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Virbela.CodingTest.Utilities
+namespace Playground.CullingGroup
 {
     /// <summary>
-    /// Defines the necessary properties required by <see cref="CullingGroupWrapper{T}"/> in order to be culled.
+    /// Defines the necessary properties required by <see cref="CullingGroup{T}"/> in order to be culled.
     /// </summary>
     public interface ICullable
     {    

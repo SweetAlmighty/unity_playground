@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Virbela.CodingTest.Highlightables
+namespace Playground.CullingGroup.Highlightables
 {
     /// <summary>
     /// ScriptableObject representing customized data used by <see cref="Highlightable"/> objects.

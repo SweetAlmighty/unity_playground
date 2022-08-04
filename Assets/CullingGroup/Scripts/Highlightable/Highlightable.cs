@@ -1,27 +1,26 @@
 using UnityEngine;
-using Virbela.CodingTest.Utilities;
 
-namespace Virbela.CodingTest.Highlightables
+namespace Playground.CullingGroup.Highlightables
 {
     /// <summary>
     /// Base class for objects that can be highlighted based on their distance to the <see cref="Player"/>.
     /// </summary>
     [RequireComponent(typeof(Renderer))]
     [RequireComponent(typeof(MeshFilter))]
-    public abstract class Highlightable : MonoBehaviour, ICullable
+    public class Highlightable : MonoBehaviour, ICullable
     {
         /// <summary>
         /// Instance of <see cref="HighlightableData"/> to be utilized by this instance.
         /// </summary>
         [SerializeField]
         [Tooltip("Instance of HighlightableData to be utilized by this instance.")]
-        private HighlightableData data = null;
+        private HighlightableData data;
 
         /// <summary>
         /// Cached reference to the <see cref="UnityEngine.Bounds.extents"/> of the mesh contained within the
         /// <see cref="MeshFilter"/> component attached to this object.
         /// </summary>
-        public Vector3 Extents { get; private set; }
+        public Vector3 Extents { get; private set; } = Vector3.zero;
 
         /// <inheritdoc cref="ICullable.Transform"/>
         public Transform Transform { get; private set; }
@@ -40,20 +39,20 @@ namespace Virbela.CodingTest.Highlightables
             this.Transform = this.transform;
             this.cachedRenderer = this.GetComponent<Renderer>();
 
-            MeshFilter filter = this.GetComponent<MeshFilter>();
-            this.Extents = filter != null ? filter.mesh.bounds.extents : Vector3.zero;
+            if (this.GetComponent<MeshFilter>() is { } filter)
+                this.Extents = filter.mesh.bounds.extents;
         }
-
-        /// <summary>
-        /// Assigns the <see cref="Material.color"/> to the <see cref="HighlightableData.highlightColor"/>, indicating
-        /// that it is the closest object to the <see cref="Player"/>.
-        /// </summary>
-        public void Highlight() => this.cachedRenderer.material.color = this.data.highlightColor;
         
         /// <summary>
         /// Assigns the <see cref="Material.color"/> to the <see cref="HighlightableData.baseColor"/>, indicating that it
         /// is <b>not</b> the closest object to the <see cref="Player"/>.
         /// </summary>
         public void Unhighlight() => this.cachedRenderer.material.color = this.data.baseColor;
+        
+        /// <summary>
+        /// Assigns the <see cref="Material.color"/> to the <see cref="HighlightableData.highlightColor"/>, indicating
+        /// that it is the closest object to the <see cref="Player"/>.
+        /// </summary>
+        public void Highlight() => this.cachedRenderer.material.color = this.data.highlightColor;
     }
 }
