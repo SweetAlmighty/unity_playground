@@ -1,12 +1,19 @@
 using UnityEngine;
 
-namespace Playground.CullingGroup.Highlightables
+namespace Playground.CullingGroup
 {
     /// <summary>
     /// Singleton responsible for generating <see cref="Highlightable"/> instances during runtime.
     /// </summary>
     public class HighlightableGenerator : MonoBehaviour
     {
+        /// <summary>
+        /// The distance from the origin that 'Item' prefabs will be instantiated within.
+        /// </summary>
+        [SerializeField]
+        [Tooltip("The distance from the origin that 'Item' prefabs will be instantiated within.")]
+        private int radius = 30;
+
         /// <summary>
         /// <see cref="Highlightable"/> prefab utilizing to the "Item" configuration of <see cref="HighlightableData"/>.
         /// </summary>
@@ -15,15 +22,10 @@ namespace Playground.CullingGroup.Highlightables
         private Highlightable item;
 
         /// <summary>
-        /// 
-        /// </summary>
-        [SerializeField]
-        [Tooltip("Highlightable prefab utilizing to the 'Item' configuration of HighlightableData.")]
-        private int radius = 30;
-
-        /// <summary>
         /// The in-scene object to place newly generated <see cref="item"/> instances under.
         /// </summary>
+        [SerializeField]
+        [Tooltip("The in-scene object to place newly generated item instances under.")]
         private Transform itemsParent;
 
         /// <summary>
@@ -35,19 +37,7 @@ namespace Playground.CullingGroup.Highlightables
         /// Stores references to parent objects in the scene, and stores the in-scene script as a static reference for use
         /// during the application's runtime.
         /// </summary>
-        private void Awake()
-        {
-            Instance = this;
-            this.itemsParent = this.FindParent("Items").transform;
-        }
-
-        /// <summary>
-        /// Helper function that finds an object within the scene to parent newly generated <see cref="Highlightable"/>s
-        /// under, and will generate a new parent object if one wasn't in the scene when the application started.
-        /// </summary>
-        /// <param name="parentName">The name of the parent object being searched for.</param>
-        /// <returns>The found parent object, pre-existing or otherwise.</returns>
-        private GameObject FindParent(string parentName) => GameObject.Find(parentName) ?? new(parentName);
+        private void Awake() => Instance = this;
 
         /// <summary>
         /// Creates an instance of <see cref="item"/> within the scene.

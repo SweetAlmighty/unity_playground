@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Playground.CullingGroup.Highlightables
+namespace Playground.CullingGroup
 {
     /// <summary>
     /// Base class for objects that can be highlighted based on their distance to the <see cref="Player"/>.
@@ -16,14 +16,14 @@ namespace Playground.CullingGroup.Highlightables
         [Tooltip("Instance of HighlightableData to be utilized by this instance.")]
         private HighlightableData data;
 
+        /// <inheritdoc cref="ICullable.Transform"/>
+        public Transform Transform { get; private set; }
+
         /// <summary>
         /// Cached reference to the <see cref="UnityEngine.Bounds.extents"/> of the mesh contained within the
         /// <see cref="MeshFilter"/> component attached to this object.
         /// </summary>
         public Vector3 Extents { get; private set; } = Vector3.zero;
-
-        /// <inheritdoc cref="ICullable.Transform"/>
-        public Transform Transform { get; private set; }
 
         /// <summary>
         /// Cached reference to the <see cref="Renderer"/> component attached to this object.
@@ -42,13 +42,13 @@ namespace Playground.CullingGroup.Highlightables
             if (this.GetComponent<MeshFilter>() is { } filter)
                 this.Extents = filter.mesh.bounds.extents;
         }
-        
+
         /// <summary>
         /// Assigns the <see cref="Material.color"/> to the <see cref="HighlightableData.baseColor"/>, indicating that it
         /// is <b>not</b> the closest object to the <see cref="Player"/>.
         /// </summary>
         public void Unhighlight() => this.cachedRenderer.material.color = this.data.baseColor;
-        
+
         /// <summary>
         /// Assigns the <see cref="Material.color"/> to the <see cref="HighlightableData.highlightColor"/>, indicating
         /// that it is the closest object to the <see cref="Player"/>.

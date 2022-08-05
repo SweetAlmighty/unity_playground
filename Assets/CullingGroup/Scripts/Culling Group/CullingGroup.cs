@@ -33,16 +33,17 @@ namespace Playground.CullingGroup
         /// <param name="objectCount">
         /// The amount of objects that are in the scene when the <see cref="CullingGroup"/> is being created.
         /// </param>
-        public CullingGroup(int objectCount, Action<CullingGroupEvent> CullingGroupEvent)
+        /// <param name="cullingGroupEvent">
+        /// Callback that will be invoked when a sphere's visibility and/or distance state has changed.
+        /// </param>
+        public CullingGroup(int objectCount, Action<CullingGroupEvent> cullingGroupEvent)
         {
             this.ResetIndices(objectCount);
             this.cullingGroup = new()
             {
                 targetCamera = Camera.main,
-                onStateChanged = CullingGroupEvent.Invoke
+                onStateChanged = cullingGroupEvent.Invoke
             };
-            this.cullingGroup.SetBoundingDistances(new[] { 1f, 5f, 25f, 125f });
-
         }
 
         /// <summary>
@@ -65,6 +66,13 @@ namespace Playground.CullingGroup
         }
 
         /// <summary>
+        /// Set bounding distances for 'distance bands' the group should compute, as well
+        /// as options for how spheres falling into each distance band should be treated.
+        /// </summary>
+        /// <param name="distances">An array of bounding distances. The distances should be sorted in increasing order.</param>
+        public void SetBoundingDistances(float[] distances) => this.cullingGroup.SetBoundingDistances(distances);
+
+        /// <summary>
         /// Disposes of <see cref="cullingGroup"/> and flags it for garbage collection.
         /// </summary>
         public void Destroy()
@@ -79,6 +87,7 @@ namespace Playground.CullingGroup
         /// <param name="visible">The state that a <see cref="BoundingSphere"/> instance must be in to be found by the query.</param>
         /// <param name="distanceIndex">The distance band that retrieved spheres must be in.</param>
         /// <param name="firstIndex">The index within the collection of <see cref="BoundingSphere"/> instances to start the search.</param>
+        /// <param name="count">The number of sphere indices found and written into the result array.</param>
         public int[] QueryIndices(bool visible, int distanceIndex, int firstIndex, out int count)
         {
             count = this.cullingGroup.QueryIndices(visible, distanceIndex, this.indices, firstIndex);
