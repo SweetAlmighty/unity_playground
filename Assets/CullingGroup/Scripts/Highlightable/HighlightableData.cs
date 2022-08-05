@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Virbela.CodingTest.Highlightables
+namespace Playground.CullingGroup
 {
     /// <summary>
     /// ScriptableObject representing customized data used by <see cref="Highlightable"/> objects.
     /// </summary>
-    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/HighlightableData", order = 1)]
+    [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CullingGroup/HighlightableData", order = 1)]
     public class HighlightableData : ScriptableObject
     {
         /// <summary>

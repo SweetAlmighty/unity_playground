@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-namespace Virbela.CodingTest.Utilities
+namespace Playground.CullingGroup
 {
     /// <summary>
     /// Wrapper class around <see cref="UnityEngine.CullingGroup"/>.
@@ -12,20 +11,20 @@ namespace Virbela.CodingTest.Utilities
     /// A type that implements <see cref="ICullable"/>, which ensures that the expected properties needed to build
     /// reference <see cref="BoundingSphere"/> instances are available.
     /// </typeparam>
-    public class CullingGroupWrapper<T> where T : ICullable
+    public class CullingGroup<T> where T : ICullable
     {
-        /// <summary>
-        /// <see cref="CullingGroup"/> instance used to create an efficient pool of <see cref="ICullable"/> objects to
-        /// pull from.
-        /// </summary>
-        private CullingGroup cullingGroup;
-
         /// <summary>
         /// An array that will be filled with indices of <see cref="BoundingSphere"/> instances within
         /// <see cref="cullingGroup"/> that represent the pool used to find the <see cref="ICullable"/> closest to a
         /// given reference <see cref="Transform"/>.
         /// </summary>
-        private int[] indices = Enumerable.Empty<int>().ToArray();
+        private int[] indices = Array.Empty<int>();
+        
+        /// <summary>
+        /// <see cref="CullingGroup"/> instance used to create an efficient pool of <see cref="ICullable"/> objects to
+        /// pull from.
+        /// </summary>
+        private UnityEngine.CullingGroup cullingGroup;
 
         /// <summary>
         /// Default constructor, initializes the internal <see cref="CullingGroup"/> instance, sets the camera to
@@ -34,20 +33,24 @@ namespace Virbela.CodingTest.Utilities
         /// <param name="objectCount">
         /// The amount of objects that are in the scene when the <see cref="CullingGroup"/> is being created.
         /// </param>
-        public CullingGroupWrapper(int objectCount)
+        /// <param name="cullingGroupEvent">
+        /// Callback that will be invoked when a sphere's visibility and/or distance state has changed.
+        /// </param>
+        public CullingGroup(int objectCount, Action<CullingGroupEvent> cullingGroupEvent)
         {
             this.ResetIndices(objectCount);
-            this.cullingGroup = new CullingGroup();
-            this.cullingGroup.targetCamera = Camera.main;
-            this.cullingGroup.SetBoundingDistances(new [] { 0f, float.PositiveInfinity });
+            this.cullingGroup = new()
+            {
+                targetCamera = Camera.main,
+                onStateChanged = cullingGroupEvent.Invoke
+            };
         }
 
         /// <summary>
         /// Set the reference point from which distance bands are measured.
         /// </summary>
         /// <param name="transform">The reference point in the scene that will be used.</param>
-        public void SetDistanceReferencePoint(Transform transform)
-            => this.cullingGroup.SetDistanceReferencePoint(transform);
+        public void SetDistanceReferencePoint(Transform transform) => this.cullingGroup.SetDistanceReferencePoint(transform);
 
         /// <summary>
         /// Sets the array of bounding sphere definitions that the CullingGroupWrapper should compute culling for.
@@ -63,21 +66,12 @@ namespace Virbela.CodingTest.Utilities
         }
 
         /// <summary>
-        /// Queries the internal <see cref="UnityEngine.CullingGroup"/> to find the positions of objects within the scene
-        /// that are within the distance band indicated by <paramref name="distanceIndex"/>.
+        /// Set bounding distances for 'distance bands' the group should compute, as well
+        /// as options for how spheres falling into each distance band should be treated.
         /// </summary>
-        /// <param name="distanceIndex">The distance band that retrieved <see cref="BoundingSphere"/>s must be in.</param>
-        /// <param name="firstIndex">The index of the <see cref="BoundingSphere"/> to begin searching at.</param>
-        /// <returns>
-        /// A collection of indices that represent the objects within the internal <see cref="UnityEngine.CullingGroup"/>'s
-        /// distance band.
-        /// </returns>
-        public IEnumerable<int> FindClosestObjects(int distanceIndex = 0, int firstIndex = 0)
-        {
-            this.cullingGroup.QueryIndices(distanceIndex, this.indices, firstIndex);
-            return this.indices;
-        }
-        
+        /// <param name="distances">An array of bounding distances. The distances should be sorted in increasing order.</param>
+        public void SetBoundingDistances(float[] distances) => this.cullingGroup.SetBoundingDistances(distances);
+
         /// <summary>
         /// Disposes of <see cref="cullingGroup"/> and flags it for garbage collection.
         /// </summary>
@@ -85,6 +79,19 @@ namespace Virbela.CodingTest.Utilities
         {
             this.cullingGroup.Dispose();
             this.cullingGroup = null;
+        }
+
+        /// <summary>
+        /// Retrieve the indices of <see cref="BoundingSphere"/> instances that have particular visibility and/or distance states.
+        /// </summary>
+        /// <param name="visible">The state that a <see cref="BoundingSphere"/> instance must be in to be found by the query.</param>
+        /// <param name="distanceIndex">The distance band that retrieved spheres must be in.</param>
+        /// <param name="firstIndex">The index within the collection of <see cref="BoundingSphere"/> instances to start the search.</param>
+        /// <param name="count">The number of sphere indices found and written into the result array.</param>
+        public int[] QueryIndices(bool visible, int distanceIndex, int firstIndex, out int count)
+        {
+            count = this.cullingGroup.QueryIndices(visible, distanceIndex, this.indices, firstIndex);
+            return this.indices;
         }
 
         /// <summary>
@@ -108,7 +115,6 @@ namespace Virbela.CodingTest.Utilities
         /// <returns>
         /// The newly created <see cref="BoundingSphere"/> representation of <paramref name="cullable"/>.
         /// </returns>
-        private BoundingSphere CreateBoundingSphere(T cullable)
-            => new BoundingSphere(cullable.Transform.position, cullable.Extents.x);
+        private BoundingSphere CreateBoundingSphere(T cullable) => new(cullable.Transform.position, cullable.Extents.x);
     }
 }
