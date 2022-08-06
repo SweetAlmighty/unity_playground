@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Title Template" src="project://database/Assets/UI/Title%20Template.uxml?fileID=9197481963319205126&amp;guid=45956f35bc4a8401cacd8b7006684507&amp;type=3#Title Template" />
+    <ui:Instance template="Title Template" name="Title Template">
+        <AttributeOverrides element-name="Title" text="NavMesh" />
+    </ui:Instance>
+</ui:UXML>
