@@ -40,7 +40,7 @@ namespace Playground.CullingGroup
         /// </summary>
         private void Update()
         {
-            this.inputAxes.Set(Input.GetAxis("Horizontal"), 0,Input.GetAxis("Vertical"));
+            this.inputAxes.Set(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             this.inputAxes *= Speed * Time.deltaTime;
 
             if (Vector3.Distance(Vector3.zero, this.Transform.position + this.inputAxes) < ClampDistance)
