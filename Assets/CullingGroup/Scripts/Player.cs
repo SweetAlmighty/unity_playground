@@ -16,7 +16,17 @@ namespace Playground.CullingGroup
         /// <summary>
         /// Container for horizontal and vertical axes used for player input.
         /// </summary>
-        private Vector2 inputAxes;
+        private Vector3 inputAxes;
+
+        /// <summary>
+        /// The multiplier used to move the player around the scene.
+        /// </summary>
+        private const float Speed = 25f;
+
+        /// <summary>
+        /// Maximum distance away from the scene's origin that the player is allowed to travel.
+        /// </summary>
+        private const float ClampDistance = 30f;
 
         /// <summary>
         /// Caches reference to the <see cref="UnityEngine.Transform"/> component attached to this object, and also sets
@@ -30,13 +40,11 @@ namespace Playground.CullingGroup
         /// </summary>
         private void Update()
         {
-            this.inputAxes.Set(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"));
+            this.inputAxes.Set(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            this.inputAxes *= Speed * Time.deltaTime;
 
-            if (this.inputAxes.y != 0)
-                this.Transform.Translate(Vector3.forward * (25f * Time.deltaTime * this.inputAxes.y));
-
-            if (this.inputAxes.x != 0)
-                this.Transform.Translate(Vector3.left * (25f * Time.deltaTime * this.inputAxes.x * -1f));
+            if (Vector3.Distance(Vector3.zero, this.Transform.position + this.inputAxes) < ClampDistance)
+                this.Transform.Translate(this.inputAxes);
         }
     }
 }
