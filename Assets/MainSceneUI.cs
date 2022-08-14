@@ -23,6 +23,7 @@ namespace Playground
 		{
 			this.uiDocument.rootVisualElement.Q<Button>("NavMesh").RegisterCallback<ClickEvent>(this.OnNavMeshClicked);
 			this.uiDocument.rootVisualElement.Q<Button>("CullingGroup").RegisterCallback<ClickEvent>(this.OnCullingGroupClicked);
+			this.uiDocument.rootVisualElement.Q<Button>("RenderTexture").RegisterCallback<ClickEvent>(this.OnRenderTextureClicked);
 		}
 
 		/// <summary>
@@ -36,5 +37,11 @@ namespace Playground
 		/// </summary>
 		/// <param name="clickEvent">Event details pertaining to a left-mouse click on a <see cref="UnityEngine.UIElements"/>.</param>
 		private void OnCullingGroupClicked(ClickEvent clickEvent) => SceneManager.LoadScene(2);
+
+		/// <summary>
+		/// Callback that loads the 'RenderTexture' scene.
+		/// </summary>
+		/// <param name="clickEvent">Event details pertaining to a left-mouse click on a <see cref="UnityEngine.UIElements"/>.</param>
+		private void OnRenderTextureClicked(ClickEvent clickEvent) => SceneManager.LoadScene(3);
 	}
 }
