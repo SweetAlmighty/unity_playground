@@ -62,3 +62,8 @@ crashlytics-build.properties
 [Aa]ssets/Plugins.meta
 
 .idea
+
+UIElementsSchema/
+UserSettings/
+TextMesh Pro/
+TextMesh Pro.meta

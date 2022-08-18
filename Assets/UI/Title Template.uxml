@@ -1,7 +1,7 @@
-<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: stretch; justify-content: center; flex-shrink: 1;">
         <ui:VisualElement style="flex-direction: row; flex-grow: 1; justify-content: center;">
-            <ui:Label text="Culling Group" display-tooltip-when-elided="true" name="Title" style="align-items: flex-start; justify-content: flex-start; flex-direction: column; flex-wrap: nowrap; -unity-text-align: upper-center; font-size: 25px; background-color: rgba(255, 255, 255, 0.5); width: 170px; transform-origin: center; left: auto; white-space: nowrap; flex-shrink: 1; flex-grow: 0;" />
+            <ui:Label text="Culling Group" display-tooltip-when-elided="true" name="Title" style="align-items: flex-start; justify-content: flex-start; flex-direction: column; flex-wrap: nowrap; -unity-text-align: upper-center; font-size: 25px; background-color: rgba(255, 255, 255, 0.5); width: auto; transform-origin: center; left: auto; white-space: nowrap; flex-shrink: 1; flex-grow: 0;" />
         </ui:VisualElement>
         <ui:Button text="Exit" display-tooltip-when-elided="true" name="Exit" style="flex-shrink: 1; height: auto; width: auto; flex-direction: row; -unity-text-align: middle-center; align-items: flex-start; justify-content: space-between; left: auto; white-space: nowrap; flex-grow: 0;" />
     </ui:VisualElement>

@@ -9,7 +9,7 @@ namespace Playground.CullingGroup
     /// <summary>
     /// Manager class used to manage <see cref="UnityEngine.CullingGroup"/> updates.
     /// </summary>
-    public class SceneManager : MonoBehaviour
+    public class CullingGroupSceneLogic : MonoBehaviour
     {
         /// <summary>
         /// In-scene <see cref="Player"/> reference used for distances calculations.

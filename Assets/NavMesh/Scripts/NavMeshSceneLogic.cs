@@ -19,7 +19,7 @@ namespace Playground.NavMesh
         /// The agent whose destination will be changed as a result of a successful Raycast.
         /// </summary>
         [SerializeField]
-        [Tooltip("")]
+        [Tooltip("The agent whose destination will be changed as a result of a successful Raycast.")]
         private NavMeshAgent agent;
 
         /// <summary>
