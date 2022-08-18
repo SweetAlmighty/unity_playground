@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 namespace RenderTexture.Scripts
 {
 	/// <summary>
-	///
+	/// The UI Component used for the "RenderTexture" scene.
 	/// </summary>
 	public class RenderTextureUI : MonoBehaviour
 	{

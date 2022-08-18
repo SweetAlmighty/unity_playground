@@ -12,29 +12,29 @@ namespace Playground.RenderTexture
 	public class DragDropManipulator : PointerManipulator
 	{
 		/// <summary>
-		///
+		/// Whether the move logic should be run.
 		/// </summary>
 		private bool Enabled { get; set; }
 
 		/// <summary>
-		///
+		/// The <see cref="VisualElement"/> that will be moved with the user's input.
 		/// </summary>
 		private VisualElement Root { get; }
 
 		/// <summary>
-		///
+		/// The position of <see cref="Root"/> when the drag was started.
 		/// </summary>
 		private Vector2 TargetStartPosition { get; set; }
 
 		/// <summary>
-		///
+		/// The user's pointer position when the drag was started.
 		/// </summary>
 		private Vector3 PointerStartPosition { get; set; }
 
 		/// <summary>
-		///
+		/// Constructors a new instance of <see cref="DragDropManipulator"/>.
 		/// </summary>
-		/// <param name="target"></param>
+		/// <param name="target">The <see cref="VisualElement"/> that will trigger the drag logic.</param>
 		public DragDropManipulator(VisualElement target)
 		{
 			this.target = target;
@@ -42,7 +42,8 @@ namespace Playground.RenderTexture
 		}
 
 		/// <summary>
-		///
+		/// Registers callbacks to the <see cref="PointerUpEvent"/>, <see cref="PointerDownEvent"/>, and
+		/// <see cref="PointerMoveEvent"/> events of <see cref="Target"/>.
 		/// </summary>
 		protected override void RegisterCallbacksOnTarget()
 		{
@@ -52,7 +53,8 @@ namespace Playground.RenderTexture
 		}
 
 		/// <summary>
-		///
+		/// Unregisters callbacks to the <see cref="PointerUpEvent"/>, <see cref="PointerDownEvent"/>, and
+		/// <see cref="PointerMoveEvent"/> events of <see cref="Target"/>.
 		/// </summary>
 		protected override void UnregisterCallbacksFromTarget()
 		{
@@ -62,42 +64,44 @@ namespace Playground.RenderTexture
 		}
 
 		/// <summary>
-		///
+		/// Callback for <see cref="PointerDownEvent"/> that stores the start positions of the mouse cursor and <see cref="Target"/>.
 		/// </summary>
-		/// <param name="evt"></param>
-		private void PointerDownHandler(PointerDownEvent evt)
+		/// <param name="pointerDownEvent">Container for data related to the event.</param>
+		private void PointerDownHandler(PointerDownEvent pointerDownEvent)
 		{
-			this.TargetStartPosition = this.Root.transform.position;
-			this.PointerStartPosition = evt.position;
-			this.target.CapturePointer(evt.pointerId);
 			this.Enabled = true;
+			this.PointerStartPosition = pointerDownEvent.position;
+			this.target.CapturePointer(pointerDownEvent.pointerId);
+			this.TargetStartPosition = this.Root.transform.position;
 		}
 
 		/// <summary>
-		///
+		/// Callback for <see cref="PointerMoveEvent"/> that calculates the delta between the positions captured in
+		/// <see cref="PointerDownHandler"/> and the pointer's current position.
 		/// </summary>
-		/// <param name="evt"></param>
-		private void PointerMoveHandler(PointerMoveEvent evt)
+		/// <param name="pointerMoveEvent">Container for data related to the event.</param>
+		private void PointerMoveHandler(PointerMoveEvent pointerMoveEvent)
 		{
-			if (!this.Enabled || !this.target.HasPointerCapture(evt.pointerId))
+			if (!this.Enabled || !this.target.HasPointerCapture(pointerMoveEvent.pointerId))
 				return;
 
-			Vector3 pointerDelta = evt.position - this.PointerStartPosition;
-
-			this.Root.transform.position = new Vector2(Mathf.Clamp(this.TargetStartPosition.x + pointerDelta.x, 0, this.Root.panel.visualTree.worldBound.width), Mathf.Clamp(this.TargetStartPosition.y + pointerDelta.y, 0, this.target.panel.visualTree.worldBound.height));
+			Vector3 pointerDelta = pointerMoveEvent.position - this.PointerStartPosition +
+			                       new Vector3(this.TargetStartPosition.x, this.TargetStartPosition.y);
+			this.Root.transform.position = new Vector2(Mathf.Clamp(pointerDelta.x, 0, this.Root.panel.visualTree.worldBound.width),
+			                                           Mathf.Clamp(pointerDelta.y, 0, this.target.panel.visualTree.worldBound.height));
 		}
 
 		/// <summary>
-		///
+		/// Callback for <see cref="PointerUpEvent"/> that releases the pointer from <see cref="Target"/>.
 		/// </summary>
-		/// <param name="evt"></param>
-		private void PointerUpHandler(PointerUpEvent evt)
+		/// <param name="pointerUpEvent">Container for data related to the event.</param>
+		private void PointerUpHandler(PointerUpEvent pointerUpEvent)
 		{
-			if (!this.Enabled || !this.target.HasPointerCapture(evt.pointerId))
+			if (!this.Enabled || !this.target.HasPointerCapture(pointerUpEvent.pointerId))
 				return;
 
 			this.Enabled = false;
-			this.target.ReleasePointer(evt.pointerId);
+			this.target.ReleasePointer(pointerUpEvent.pointerId);
 		}
 	}
 }
