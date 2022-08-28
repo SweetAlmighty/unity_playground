@@ -1,12 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Window" focusable="true" style="width: 50%; height: 40%; position: relative; background-color: rgb(210, 210, 210);">
-        <ui:VisualElement name="TitleBar" style="height: 12%; width: 100%; background-color: rgb(0, 0, 0); -unity-text-align: upper-center; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
-            <ui:Label text="Drag Here" display-tooltip-when-elided="true" style="-unity-text-outline-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0); -unity-text-align: upper-center; color: rgb(255, 255, 255); border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0;" />
-        </ui:VisualElement>
-        <ui:VisualElement style="height: 100%;">
-            <ui:RadioButtonGroup label="Color" value="0" choices="Red,Green,Blue" name="ColorPicker" focusable="false" style="width: 100%;" />
-            <ui:Slider picking-mode="Ignore" label="Rotation" value="180" high-value="360" name="RotationSlider" focusable="false" />
-            <ui:TextField picking-mode="Ignore" label="Label" name="NameField" max-length="25" value="Name" text="Name" focusable="true" />
-        </ui:VisualElement>
-    </ui:VisualElement>
+    <ui:Template name="Title Template" src="project://database/Assets/UI/Title%20Template.uxml?fileID=9197481963319205126&amp;guid=45956f35bc4a8401cacd8b7006684507&amp;type=3#Title Template" />
+    <ui:Instance template="Title Template" name="Title Template" style="font-size: 11px;">
+        <AttributeOverrides element-name="Title" enable-rich-text="false" text="RenderTexture" />
+    </ui:Instance>
 </ui:UXML>
