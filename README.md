@@ -7,4 +7,4 @@ Each demo has its own self-contained scene that can be accessed from main menu, 
 Check the wiki for more information regarding each demo scene.
 
 ## More Info
-Follow the development here![Trello](https://trello.com/b/XggBFRVj/unity-playground)
+Follow the development [here](https://trello.com/b/XggBFRVj/unity-playground)!
