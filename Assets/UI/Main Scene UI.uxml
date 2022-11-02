@@ -5,6 +5,7 @@
             <ui:Button text="Nav Mesh" display-tooltip-when-elided="true" enable-rich-text="true" name="NavMesh" />
             <ui:Button text="Culling Group" display-tooltip-when-elided="true" name="CullingGroup" />
             <ui:Button text="Render Texture" display-tooltip-when-elided="true" name="RenderTexture" />
+            <ui:Button text="Input" display-tooltip-when-elided="true" name="Input" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1142009399}
   - component: {fileID: 1142009398}
+  - component: {fileID: 1142009400}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -171,6 +172,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1142009400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142009397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92a4caa395c9744387a3a15ec188516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiDocument: {fileID: 1142009398}
 --- !u!1 &1328305064
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,10 +489,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bb6b1ffdd2608d4381620cbfa0223a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: {x: 0, y: 0}
-  delta: {x: 0, y: 0, z: 0}
-  inputType: 0
-  up: 0
-  left: 0
-  down: 0
-  right: 0
