@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RenderTexture.unity
     guid: d72bbe3e6c0684819b3819a7099e8ec1
+  - enabled: 1
+    path: Assets/Scenes/Input.unity
+    guid: b146b0b2484977d45b4c6b86cf83f49f
   m_configObjects: {}

@@ -21,6 +21,7 @@ namespace Playground
 		/// </summary>
 		private void OnEnable()
 		{
+			this.uiDocument.rootVisualElement.Q<Button>("Input").RegisterCallback<ClickEvent>(this.OnInputClicked);
 			this.uiDocument.rootVisualElement.Q<Button>("NavMesh").RegisterCallback<ClickEvent>(this.OnNavMeshClicked);
 			this.uiDocument.rootVisualElement.Q<Button>("CullingGroup").RegisterCallback<ClickEvent>(this.OnCullingGroupClicked);
 			this.uiDocument.rootVisualElement.Q<Button>("RenderTexture").RegisterCallback<ClickEvent>(this.OnRenderTextureClicked);
@@ -43,5 +44,11 @@ namespace Playground
 		/// </summary>
 		/// <param name="clickEvent">Event details pertaining to a left-mouse click on a <see cref="UnityEngine.UIElements"/>.</param>
 		private void OnRenderTextureClicked(ClickEvent clickEvent) => SceneManager.LoadScene(3);
+
+		/// <summary>
+		/// Callback that loads the 'Input' scene.
+		/// </summary>
+		/// <param name="clickEvent">Event details pertaining to a left-mouse click on a <see cref="UnityEngine.UIElements"/>.</param>
+		private void OnInputClicked(ClickEvent clickEvent) => SceneManager.LoadScene(4);
 	}
 }
