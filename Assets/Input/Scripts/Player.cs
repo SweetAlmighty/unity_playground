@@ -50,6 +50,8 @@ namespace Playground.InputManagement
 
             if (this.input.DetermineMoveDelta() is Vector3 moveDelta && moveDelta != Vector3.zero)
             {
+                // TODO: Tried abstracting this logic to BaseInput, but ran into issues where
+                // player would only move on one axis, and ignored camera rotation.
                 Vector3 move = Quaternion.Euler(0, this.camera.transform.eulerAngles.y, 0) * moveDelta;        
                 this.transform.position += move * (Time.deltaTime * 10f);
             }
