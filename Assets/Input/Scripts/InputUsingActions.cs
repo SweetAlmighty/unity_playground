@@ -49,16 +49,19 @@ namespace Playground.InputManagement
         /// <summary>
         /// 
         /// </summary>
-        private void Awake() => this.jumpAction.performed += player.OnJumpActionPerformed;
+        private void Awake()
+        {
+            this.jumpAction.performed += player.Jump;
+            this.lookAction.performed += context => player.Look(context.ReadValue<Vector2>());
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public override Vector2 DetermineLookDelta() => this.Look(this.lookAction.ReadValue<Vector2>());
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public override Vector3 DetermineMoveDelta() => this.moveAction.ReadValue<Vector3>();
+        private void Update()
+        {
+            if (this.moveAction.ReadValue<Vector3>() is Vector3 delta)
+                this.player.Move(delta);
+        }
     }
 }

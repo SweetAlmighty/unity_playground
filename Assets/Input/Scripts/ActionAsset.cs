@@ -53,7 +53,7 @@ namespace Playground.InputManagement
                     ""id"": ""7cab966b-5d8a-4081-9327-5585ffa2e74f"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
                 }
             ],

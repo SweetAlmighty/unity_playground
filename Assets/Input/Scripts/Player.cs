@@ -25,14 +25,44 @@ namespace Playground.InputManagement
         /// 
         /// </summary>
         [SerializeField]
-        //private InputUsingActions input;
-        private InputUsingActionAsset input;
-        //private InputUsingStates input;
+        private BaseInput[] baseInputs;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SerializeField]
+        protected float moveSpeed = 10f;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [SerializeField]
+        protected float rotationSpeed = 60f;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int selection;
 
         /// <summary>
         /// 
         /// </summary>
         private bool jumping;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Vector2 rotation;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Vector3 moveDelta;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected Vector3 lookDelta;
 
         /// <summary>
         /// 
@@ -43,25 +73,32 @@ namespace Playground.InputManagement
         /// <summary>
         /// 
         /// </summary>
-        private void Update()
+        /// <param name="value"></param>
+        public void Look(Vector2 value)
         {
-            if (this.input.DetermineLookDelta() is Vector2 lookDelta && lookDelta.sqrMagnitude >= 0.01)
-                this.camera.transform.localEulerAngles = lookDelta;
+            float rotateSpeed = this.rotationSpeed * Time.deltaTime;
 
-            if (this.input.DetermineMoveDelta() is Vector3 moveDelta && moveDelta != Vector3.zero)
-            {
-                // TODO: Tried abstracting this logic to BaseInput, but ran into issues where
-                // player would only move on one axis, and ignored camera rotation.
-                Vector3 move = Quaternion.Euler(0, this.camera.transform.eulerAngles.y, 0) * moveDelta;        
-                this.transform.position += move * (Time.deltaTime * 10f);
-            }
+            this.rotation.y += value.x * rotateSpeed;
+            this.rotation.x = Mathf.Clamp(this.rotation.x - value.y * rotateSpeed, -89, 89);
+
+            this.camera.transform.localEulerAngles = this.rotation;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="value"></param>
+        public void Move(Vector3 value)
+        {
+            Vector3 move = Quaternion.Euler(0, this.camera.transform.eulerAngles.y, 0) * value;
+            this.transform.position += move * (Time.deltaTime * this.moveSpeed);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="context"></param>
-        public void OnJumpActionPerformed(InputAction.CallbackContext context)
+        public void Jump(InputAction.CallbackContext context)
         {
             if (!this.jumping && context.interaction is TapInteraction)
             {

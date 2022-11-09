@@ -17,32 +17,60 @@ namespace Playground.InputManagement
 		/// 
 		/// </summary>
 		private Keyboard currentKeyboard;
- 
-		/// <summary>
-		/// 
-		/// </summary>
-		private void Awake()
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void Awake()
 		{
 			this.currentMouse = Mouse.current;
 			this.currentKeyboard = Keyboard.current;
         }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public override Vector2 DetermineLookDelta() => this.Look(this.currentMouse.delta.ReadValue());
+        /// <summary>
+        /// 
+        /// </summary>
+        private void Update()
+        {
+            this.DetermineLookDelta();
+            this.DetermineMoveDelta();
+        }
 
         /// <summary>
         /// 
         /// </summary>
-        public override Vector3 DetermineMoveDelta()
-		{
-			Vector3 moveDelta = Vector3.zero;
-			moveDelta.z += Mathf.Max(this.currentKeyboard.wKey.ReadValue(), this.currentKeyboard.upArrowKey.ReadValue());
-			moveDelta.x -= Mathf.Max(this.currentKeyboard.aKey.ReadValue(), this.currentKeyboard.leftArrowKey.ReadValue());
-			moveDelta.z -= Mathf.Max(this.currentKeyboard.sKey.ReadValue(), this.currentKeyboard.downArrowKey.ReadValue());
-			moveDelta.x += Mathf.Max(this.currentKeyboard.dKey.ReadValue(), this.currentKeyboard.rightArrowKey.ReadValue());
-			return moveDelta;
+        private void DetermineLookDelta()
+        {
+            Vector2 lookDelta = Vector2.zero;
+
+			if (this.currentMouse.wasUpdatedThisFrame)
+				lookDelta = this.currentMouse.delta.ReadValue();
+
+			if (lookDelta.sqrMagnitude >= 0.01f)
+				this.player.Look(lookDelta);
 		}
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DetermineMoveDelta()
+		{
+            Vector3 moveDelta = Vector3.zero;
+
+            if (this.currentKeyboard.wKey.isPressed)
+                moveDelta.z += this.currentKeyboard.wKey.ReadValue();
+
+            if (this.currentKeyboard.aKey.isPressed)
+                moveDelta.x -= this.currentKeyboard.aKey.ReadValue();
+
+            if (this.currentKeyboard.sKey.isPressed)
+                moveDelta.z -= this.currentKeyboard.sKey.ReadValue();
+
+            if (this.currentKeyboard.dKey.isPressed)
+                moveDelta.x += this.currentKeyboard.dKey.ReadValue();
+
+            if (moveDelta != Vector3.zero)
+                this.player.Move(moveDelta);
+        }
 	}
 }
