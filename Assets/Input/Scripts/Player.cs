@@ -42,7 +42,8 @@ namespace Playground.InputManagement
         /// <summary>
         /// 
         /// </summary>
-        private int selection;
+        [SerializeField]
+        public int selection;
 
         /// <summary>
         /// 
@@ -69,6 +70,17 @@ namespace Playground.InputManagement
         /// </summary>
         /// <param name="collision"></param>
         private void OnCollisionEnter(Collision collision) => this.jumping = false;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selection"></param>
+        public void UpdateInputComponents(int selection)
+        {
+            if (this.GetComponents<BaseInput>() is BaseInput[] components)
+                for (int i = 0; i < components.Length; i++)
+                    components[i].enabled = i == selection;
+        }
 
         /// <summary>
         /// 

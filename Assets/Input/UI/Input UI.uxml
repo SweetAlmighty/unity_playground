@@ -3,4 +3,7 @@
     <ui:Instance template="Title Template" name="Title Template">
         <AttributeOverrides element-name="Title" text="Input" />
     </ui:Instance>
+    <ui:VisualElement style="flex-grow: 1; flex-direction: column-reverse;">
+        <ui:RadioButtonGroup label="Input Type" value="0" choices="States, Input Actions, Input Action Asset" name="InputType" binding-path="selection" focusable="false" style="width: 158px; transform-origin: center; justify-content: flex-end; align-items: flex-start; flex-direction: column; flex-wrap: nowrap; background-color: rgba(255, 255, 255, 0.5); top: auto; left: -2px;" />
+    </ui:VisualElement>
 </ui:UXML>
