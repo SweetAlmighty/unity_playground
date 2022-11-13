@@ -54,9 +54,8 @@ namespace Playground.InputManagement
         /// <param name="selection">The selection the user made in the UI.</param>
         public void UpdateInputComponents(int selection)
         {
-            if (this.GetComponents<BaseInput>() is BaseInput[] components)
-                for (int i = 0; i < components.Length; i++)
-                    components[i].enabled = i == selection;
+            for (int i = 0; i < baseInputs.Length; i++)
+                baseInputs[i].enabled = i == selection;
         }
 
         /// <summary>
@@ -81,12 +80,21 @@ namespace Playground.InputManagement
         }
 
         /// <summary>
-        /// Propels the player vertically, and flips <see cref="jumping"/> to true.
+        /// Override for <see cref="Jump()"/> that takes in the context of the user's input.
         /// </summary>
         /// <param name="context">The context of the user's input that is triggering the jump.</param>
         public void Jump(InputAction.CallbackContext context)
         {
-            if (!this.jumping && context.interaction is TapInteraction)
+            if (context.interaction is TapInteraction)
+                this.Jump();
+        }
+
+        /// <summary>
+        /// Propels the player vertically, and flips <see cref="jumping"/> to true.
+        /// </summary>
+        public void Jump()
+        {
+            if (!this.jumping)
             {
                 this.jumping = true;
                 this.transform.GetComponent<Rigidbody>().AddForce(Vector3.up * 3, ForceMode.Impulse);

@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,7 @@ namespace Playground.InputManagement
         {
             this.DetermineLookDelta();
             this.DetermineMoveDelta();
+            this.DetermineJump();
         }
 
         /// <summary>
@@ -71,6 +73,15 @@ namespace Playground.InputManagement
 
             if (moveDelta != Vector3.zero)
                 this.player.Move(moveDelta);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void DetermineJump()
+        {
+            if (this.currentKeyboard.spaceKey.isPressed)
+                this.player.Jump();
         }
 	}
 }

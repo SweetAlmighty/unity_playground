@@ -4,6 +4,7 @@
         <AttributeOverrides element-name="Title" text="Input" />
     </ui:Instance>
     <ui:VisualElement style="flex-grow: 1; flex-direction: column-reverse;">
-        <ui:RadioButtonGroup label="Input Type" value="0" choices="States, Input Actions, Input Action Asset" name="InputType" binding-path="selection" focusable="false" style="width: 158px; transform-origin: center; justify-content: flex-end; align-items: flex-start; flex-direction: column; flex-wrap: nowrap; background-color: rgba(255, 255, 255, 0.5); top: auto; left: -2px;" />
+        <ui:RadioButtonGroup label="Input Type" value="0" choices="States,Actions,Action Asset" name="InputType" binding-path="selection" focusable="false" style="width: 158px; transform-origin: center; justify-content: flex-end; align-items: flex-start; flex-direction: column; flex-wrap: nowrap; background-color: rgba(255, 255, 255, 0.5); top: auto; left: -2px;" />
+        <ui:Label text="Move Player: WASD&#10;Look Around: Mouse&#10;Jump: Space" display-tooltip-when-elided="true" name="Controls" style="flex-shrink: 0; flex-grow: 0; flex-basis: auto; flex-direction: row; width: 159px; justify-content: flex-end; height: auto; background-color: rgba(255, 255, 255, 0.5); left: auto; top: auto; -unity-text-align: upper-left;" />
     </ui:VisualElement>
 </ui:UXML>
