@@ -4,30 +4,24 @@ using UnityEngine.InputSystem;
 namespace Playground.InputManagement
 {
     /// <summary>
-    /// 
+	/// Wrapper component for manipulating the scene using <see cref="InputAction"/> references configured wihtin the inspector.
     /// </summary>
-    public class InputUsingActions : BaseInput
+    public class InputUsingActions : ActionsInput
     {
-        /// <summary>
-        /// 
-        /// </summary>
         [SerializeField]
+        [Tooltip("The action used to capture input used to move the player in the scene.")]
         private InputAction moveAction;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [SerializeField]
+        [Tooltip("The action used to capture input used to manipulate the player's camera in the scene.")]
         private InputAction lookAction;
 
-        /// <summary>
-        /// 
-        /// </summary>
         [SerializeField]
+        [Tooltip("The action used to capture input used to make the player perform a jump action in the scene.")]
         private InputAction jumpAction;
 
         /// <summary>
-        /// 
+        /// Enables the <see cref="InputAction"/> references on this component.
         /// </summary>
         private void OnEnable()
         {
@@ -37,7 +31,7 @@ namespace Playground.InputManagement
         }
 
         /// <summary>
-        /// 
+        /// Disables the <see cref="InputAction"/> references on this component.
         /// </summary>
         private void OnDisable()
         {
@@ -47,21 +41,13 @@ namespace Playground.InputManagement
         }
 
         /// <summary>
-        /// 
+        /// Subscribes our player's manipulation methods to the appropriate <see cref="InputAction"/> references.
         /// </summary>
         private void Awake()
         {
+            this.moveAction.performed += OnMove;
+            this.lookAction.performed += player.Look;
             this.jumpAction.performed += player.Jump;
-            this.lookAction.performed += context => player.Look(context.ReadValue<Vector2>());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void Update()
-        {
-            if (this.moveAction.ReadValue<Vector3>() is Vector3 delta)
-                this.player.Move(delta);
         }
     }
 }

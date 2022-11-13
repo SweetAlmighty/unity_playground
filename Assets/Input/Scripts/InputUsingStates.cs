@@ -4,22 +4,22 @@ using UnityEngine.InputSystem;
 namespace Playground.InputManagement
 {
 	/// <summary>
-	///
+	/// Wrapper component for manipulating the scene using states held by Unity's references to input devices.
 	/// </summary>
 	public class InputUsingStates : BaseInput
 	{
         /// <summary>
-        /// 
+		/// The user's current Mouse input device.
         /// </summary>
         private Mouse currentMouse;
 
 		/// <summary>
-		/// 
+		/// The user's current Keyboard input device.
 		/// </summary>
 		private Keyboard currentKeyboard;
 
         /// <summary>
-        /// 
+        /// Captures the user's current Keyboard and Mouse devices.
         /// </summary>
         private void Awake()
 		{
@@ -28,7 +28,7 @@ namespace Playground.InputManagement
         }
 
         /// <summary>
-        /// 
+        /// Runs the player's looking anhd movement logic.
         /// </summary>
         private void Update()
         {
@@ -37,7 +37,7 @@ namespace Playground.InputManagement
         }
 
         /// <summary>
-        /// 
+        /// Calculates the player's look delta vector, if any look input has been received.
         /// </summary>
         private void DetermineLookDelta()
         {
@@ -51,7 +51,7 @@ namespace Playground.InputManagement
 		}
 
         /// <summary>
-        /// 
+        /// Calculates the player's move delta vector, if any movement input has been received.
         /// </summary>
         private void DetermineMoveDelta()
 		{

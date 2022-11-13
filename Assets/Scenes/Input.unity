@@ -687,7 +687,7 @@ GameObject:
   - component: {fileID: 1675775557}
   - component: {fileID: 1675775556}
   - component: {fileID: 1675775561}
-  - component: {fileID: 1675775562}
+  - component: {fileID: 1675775564}
   - component: {fileID: 1675775560}
   m_Layer: 0
   m_Name: Player
@@ -737,10 +737,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   character: {fileID: 111466839}
   camera: {fileID: 1208548660}
-  baseInputs: []
+  baseInputs:
+  - {fileID: 1675775561}
+  - {fileID: 1675775564}
+  - {fileID: 1675775560}
   moveSpeed: 10
   rotationSpeed: 60
-  selection: 0
 --- !u!4 &1675775558
 Transform:
   m_ObjectHideFlags: 0
@@ -784,7 +786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1675775557}
---- !u!114 &1675775562
+--- !u!114 &1675775564
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
