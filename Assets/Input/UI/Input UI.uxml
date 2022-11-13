@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Title Template" src="project://database/Assets/UI/Title%20Template.uxml?fileID=9197481963319205126&amp;guid=45956f35bc4a8401cacd8b7006684507&amp;type=3#Title Template" />
+    <ui:Instance template="Title Template" name="Title Template">
+        <AttributeOverrides element-name="Title" text="Input" />
+    </ui:Instance>
+    <ui:VisualElement style="flex-grow: 1; flex-direction: column-reverse;">
+        <ui:RadioButtonGroup label="Input Type" value="0" choices="States,Actions,Action Asset" name="InputType" binding-path="selection" focusable="false" style="width: 158px; transform-origin: center; justify-content: flex-end; align-items: flex-start; flex-direction: column; flex-wrap: nowrap; background-color: rgba(255, 255, 255, 0.5); top: auto; left: -2px;" />
+        <ui:Label text="Move Player: WASD&#10;Look Around: Mouse&#10;Jump: Space" display-tooltip-when-elided="true" name="Controls" style="flex-shrink: 0; flex-grow: 0; flex-basis: auto; flex-direction: row; width: 159px; justify-content: flex-end; height: auto; background-color: rgba(255, 255, 255, 0.5); left: auto; top: auto; -unity-text-align: upper-left;" />
+    </ui:VisualElement>
+</ui:UXML>

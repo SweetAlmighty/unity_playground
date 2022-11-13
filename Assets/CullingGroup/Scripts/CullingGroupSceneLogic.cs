@@ -89,7 +89,7 @@ namespace Playground.CullingGroup
         private void RegisterUICallbacks()
         {
             if (this.uiDocument.rootVisualElement.Q<RadioButtonGroup>() is { } radioButtonGroup)
-                radioButtonGroup.RegisterValueChangedCallback(this.OnDistanceBandUpdated);
+                _ = radioButtonGroup.RegisterValueChangedCallback(this.OnDistanceBandUpdated);
 
             if (this.uiDocument.rootVisualElement.Q<Button>() is { } button)
                 button.RegisterCallback<ClickEvent>(_ => UnityEngine.SceneManagement.SceneManager.LoadScene(0));
@@ -127,7 +127,7 @@ namespace Playground.CullingGroup
             this.cachedPosition = this.player.Transform.position;
             this.player.Transform.position = Vector3.one * 100;
 
-            this.StartCoroutine(nameof(this.ResetPlayer));
+            _ = this.StartCoroutine(nameof(this.ResetPlayer));
         }
 
         /// <summary>
